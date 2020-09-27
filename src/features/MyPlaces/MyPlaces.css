@@ -1,0 +1,16 @@
+.card{
+  transition: all 0.5s;
+  box-shadow: none;
+}
+
+.card:hover{
+  box-shadow:
+  0 0.5px 1.1px rgba(0, 0, 0, 0.011),
+  0 1.1px 2.7px rgba(0, 0, 0, 0.016),
+  0 2.1px 5.1px rgba(0, 0, 0, 0.02),
+  0 3.8px 9.2px rgba(0, 0, 0, 0.024),
+  0 7.1px 17.1px rgba(0, 0, 0, 0.029),
+  0 17px 41px rgba(0, 0, 0, 0.04)
+;
+
+}
