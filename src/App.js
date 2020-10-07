@@ -6,9 +6,11 @@ import {
   Link
 } from "react-router-dom";
 import { Layout, Content } from 'antd';
-import Login from './features/Login/Login';
+import Login from './features/Authentication/Login/Login';
+import Register from './features/Authentication/Register/Register';
 import SplashScreen from './features/SplashScreen/SplashScreen';
 import MyPlaces from './features/MyPlaces/MyPlaces';
+import HomeScreen from './features/HomeScreen/HomeScreen';
 import PlacePopulationChange from './features/PlacePopulationChange/PlacePopulationChange';
 import {UserContext} from './context/UserContext';
 import axios from 'axios';
@@ -68,16 +70,22 @@ function App() {
 
   return (
     <UserContext.Provider value={{isAuth:isAuth, setAuth:setAuth, user:user, setUser:setUser}}>
-      <Layout style={{height:'100%'}}>
-        <Layout.Content style={{height:'100%', display:'flex',justifyContent:'center',alignItems:'center'}}>
+      <Layout style={{height:'100%', justifyContent:'center', alignItems:'center'}}>
+        <Layout.Content className="app">
           {loadingUser?<SplashScreen/>:
             <Router>
             <Switch>
               <Route exact path="/">
+                <HomeScreen/> 
+              </Route>
+              <Route exact path="/myplaces">
                 <MyPlaces/> 
               </Route>
               <Route path="/login">
                 <Login/>
+              </Route>
+              <Route path="/register">
+                <Register/>
               </Route>
               <Route path="/place/:id">
                 <PlacePopulationChange/>

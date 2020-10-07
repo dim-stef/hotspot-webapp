@@ -1,7 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import {Input, Form, Checkbox, Button} from 'antd';
-import {UserContext} from '../../context/UserContext';
+import {UserContext} from '../../../context/UserContext';
+import Wrapper from '../Wrapper/Wrapper';
 import axios from 'axios';
 
 const layout = {
@@ -12,7 +13,7 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-function Login(){
+function Register(){
   const userContext = useContext(UserContext);
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -20,12 +21,16 @@ function Login(){
   const onFinish = async values => {
     try{
       setLoading(true);
-      let response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/auth/local`, {
-        identifier: values.email,
-        password: values.password
+      let response = await axios.post(`${process.env.REACT_APP_DOMAIN_URL}/auth/local/register`, {
+        username: values.email,
+        email: values.email,
+        password: values.password,
       })
       userContext.setAuth(response.data.jwt);
       setLoading(false);
+      if (response.content.statusCode === 400) {
+        //setError(true);
+      }
     }catch(e){
       userContext.setAuth(null);
       setLoading(false);
@@ -44,15 +49,11 @@ function Login(){
   },[userContext.isAuth])
 
   return(
-    <div style={{display:'flex',justifyContent:'center',alignItems:'center', flexFlow:'column'}}>
-      <div style={{display:'flex',justifyContent:'center',alignItems:'center', flexFlow:'column',margin:50}}>
-        <img src="/logo.png" style={{height:100,width:100,borderRadius:'100%'}}/>
-        <h1>Hotspot</h1>
-      </div>
+   <Wrapper>
       <Form
       {...layout}
-      size="large"
-      name="basic"
+      style={{width:'100%'}}
+      name="register"
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -72,19 +73,37 @@ function Login(){
       >
         <Input.Password />
       </Form.Item>
+      <Form.Item
+        name="confirm"
+        label="Confirm Password"
+        dependencies={['password']}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please confirm your password!',
+          },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-    </div>
+              return Promise.reject('The two passwords that you entered do not match!');
+            },
+          }),
+        ]}
+      >
+        <Input.Password />
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit" loading={loading}>
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </Wrapper>
   )
 }
 
-export default Login;
+export default Register;

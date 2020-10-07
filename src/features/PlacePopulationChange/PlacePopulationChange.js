@@ -26,7 +26,7 @@ function PlacePopulationChange(){
   let { id } = useParams();
   const userContext = useContext(UserContext);
 
-  async function postStatus() {
+  async function postStatus(type) {
     try {
       let response = await fetch(`${process.env.REACT_APP_API_URL}/population-assessments/`, {
         method: 'POST',
@@ -36,7 +36,7 @@ function PlacePopulationChange(){
           Authorization: `Bearer ${userContext.isAuth}`,
         },
         body: JSON.stringify({
-          assessment: status,
+          assessment: type,
           place: place.id,
         }),
       });
@@ -55,13 +55,10 @@ function PlacePopulationChange(){
     }
   }
   
-  useEffect(() => {
-    //don't update status on mount
-    if (status !== prevStatus) {
-      postStatus();
-    }
-    setPrevStatus(status);
-  }, [status]);
+  function handleClick(type){
+    postStatus(type);
+    setStatus(type);
+  }
 
   useEffect(()=>{
     if(place && place.population){
@@ -94,7 +91,7 @@ function PlacePopulationChange(){
             label="Λίγος"
             backgroundColor={colors.backgroundLow}
             color={colors.textLow}
-            onClick={() => setStatus('Low')}
+            onClick={() => handleClick('Low')}
             style={{
               borderTopLeftRadius: 10,
               borderBottomLeftRadius: 10,
@@ -108,7 +105,7 @@ function PlacePopulationChange(){
             label="Μεσαίος"
             backgroundColor={colors.backgroundMedium}
             color={colors.textMedium}
-            onClick={() => setStatus('Medium')}
+            onClick={() => handleClick('Medium')}
             style={{borderRightColor: '#ececec', borderRightWidth: 1}}
           />
           <StatusButton
@@ -117,7 +114,7 @@ function PlacePopulationChange(){
             label="Πολύς"
             backgroundColor={colors.backgroundHigh}
             color={colors.textHigh}
-            onClick={() => setStatus('High')}
+            onClick={() => handleClick('High')}
             style={{borderTopRightRadius: 10, borderBottomRightRadius: 10}}
           />
         </div>

@@ -7,6 +7,21 @@
   pointer-events: none;
 }
 
+.app{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+@media all and (max-width: 767px){
+  .app{
+    width:100%;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
