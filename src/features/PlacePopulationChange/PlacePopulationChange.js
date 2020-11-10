@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import {UserContext} from '../../context/UserContext';
 import axios from 'axios';
-import { Typography } from 'antd';
+import { Layout, Typography } from 'antd';
 
 const colors = {
   backgroundLow: '#4caf5096',
@@ -71,54 +71,56 @@ function PlacePopulationChange(){
 
   if(place){
     return (
-      <div style={{display:'flex',flexFlow:'column',flex: 1, margin: 20, maxWidth:500}}>
-        <Typography.Paragraph style={{fontWeight: 'bold', fontSize: 24}}>
-          Ανανέωσε τον πληθυσμό
-        </Typography.Paragraph>
-        <Typography.Paragraph style={{marginTop: 10, marginBottom: 10}}>
-          Για την καλύτερη εμπειρία είναι καλό να ανανεώνεις τον πληθυσμό κάθε 1
-          ώρα ή όταν παρατηρείται αλλαγή
-        </Typography.Paragraph>
-        <div
-          style={{
-            display:'flex',
-            flexDirection: 'row',
-            padding: 0,
-          }}>
-          <StatusButton
-            status={status}
-            value="Low"
-            label="Λίγος"
-            backgroundColor={colors.backgroundLow}
-            color={colors.textLow}
-            onClick={() => handleClick('Low')}
+      <Layout.Content className="app">
+        <div style={{display:'flex',flexFlow:'column',flex: 1, margin: 20, maxWidth:500}}>
+          <Typography.Paragraph style={{fontWeight: 'bold', fontSize: 24}}>
+            Ανανέωσε τον πληθυσμό
+          </Typography.Paragraph>
+          <Typography.Paragraph style={{marginTop: 10, marginBottom: 10}}>
+            Για την καλύτερη εμπειρία είναι καλό να ανανεώνεις τον πληθυσμό κάθε 1
+            ώρα ή όταν παρατηρείται αλλαγή
+          </Typography.Paragraph>
+          <div
             style={{
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-              borderRightColor: '#ececec',
-              borderRightWidth: 1,
-            }}
-          />
-          <StatusButton
-            status={status}
-            value="Medium"
-            label="Μεσαίος"
-            backgroundColor={colors.backgroundMedium}
-            color={colors.textMedium}
-            onClick={() => handleClick('Medium')}
-            style={{borderRightColor: '#ececec', borderRightWidth: 1}}
-          />
-          <StatusButton
-            status={status}
-            value="High"
-            label="Πολύς"
-            backgroundColor={colors.backgroundHigh}
-            color={colors.textHigh}
-            onClick={() => handleClick('High')}
-            style={{borderTopRightRadius: 10, borderBottomRightRadius: 10}}
-          />
+              display:'flex',
+              flexDirection: 'row',
+              padding: 0,
+            }}>
+            <StatusButton
+              status={status}
+              value="Low"
+              label="Λίγος"
+              backgroundColor={colors.backgroundLow}
+              color={colors.textLow}
+              onClick={() => handleClick('Low')}
+              style={{
+                borderTopLeftRadius: 10,
+                borderBottomLeftRadius: 10,
+                borderRightColor: '#ececec',
+                borderRightWidth: 1,
+              }}
+            />
+            <StatusButton
+              status={status}
+              value="Medium"
+              label="Μεσαίος"
+              backgroundColor={colors.backgroundMedium}
+              color={colors.textMedium}
+              onClick={() => handleClick('Medium')}
+              style={{borderRightColor: '#ececec', borderRightWidth: 1}}
+            />
+            <StatusButton
+              status={status}
+              value="High"
+              label="Πολύς"
+              backgroundColor={colors.backgroundHigh}
+              color={colors.textHigh}
+              onClick={() => handleClick('High')}
+              style={{borderTopRightRadius: 10, borderBottomRightRadius: 10}}
+            />
+          </div>
         </div>
-      </div>
+      </Layout.Content>
     );
   }else{
     return null;

@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import {Input, Form, Checkbox, Button} from 'antd';
+import {Layout, Input, Form, Checkbox, Button} from 'antd';
 import {UserContext} from '../../../context/UserContext';
 import Wrapper from '../Wrapper/Wrapper';
 import axios from 'axios';

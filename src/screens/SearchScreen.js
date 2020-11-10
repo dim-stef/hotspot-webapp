@@ -2,11 +2,11 @@ import React, {useEffect, useState, useContext, useRef} from 'react';
 import {
   useParams
 } from "react-router-dom";
-import {Affix, Typography, Input, PageHeader } from 'antd';
-import {UserContext} from '../../context/UserContext';
-import useTranslations from '../Translations/useTranslations';
-import useWindowScroll from '../GenericHooks/useWindowScroll';
-import PlaceList from '../PlaceList/PlaceList';
+import {Layout, Affix, Typography, Input, PageHeader } from 'antd';
+import {UserContext} from '../context/UserContext';
+import useTranslations from '../features/Translations/useTranslations';
+import useWindowScroll from '../features/GenericHooks/useWindowScroll';
+import PlaceList from '../features/PlaceList/PlaceList';
 import axios from 'axios';
 
 const { Search } = Input;
@@ -40,7 +40,7 @@ function buildQuery(baseUri, params, extra = {}) {
   return baseUri;
 }
 
-function HomeScreen(){
+function SearchScreen(){
   const [filters, setFilters] = useState(initFilters);
   const userContext = useContext(UserContext);
 
@@ -149,14 +149,16 @@ function HomePlaceList({filters, setFilters}){
   }, [filters]);
 
   return(
-    <div>
-      <Affix offsetTop={0}></Affix>
-      <PageHeader title="Μέρη"
-      onBack={() => null}>
-        <Search placeholder="Ψάξε μέρος, καφετέρια, κατάστημα κτλ." enterButton onChange={handleChange}/>
-        <PlaceList places={places}/>
-      </PageHeader>
-    </div>
+    <Layout.Content className="app">
+      <div>
+        <Affix offsetTop={0}></Affix>
+        <PageHeader title="Μέρη"
+        onBack={() => null}>
+          <Search placeholder="Ψάξε μέρος, καφετέρια, κατάστημα κτλ." enterButton onChange={handleChange}/>
+          <PlaceList places={places}/>
+        </PageHeader>
+      </div>
+    </Layout.Content>
   )
 }
-export default HomeScreen;
+export default SearchScreen;

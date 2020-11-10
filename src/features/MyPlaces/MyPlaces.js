@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
-import {Card, PageHeader, Button, Descriptions, Typography} from 'antd';
+import {Layout, Card, PageHeader, Button, Descriptions, Typography} from 'antd';
 import {UserContext} from '../../context/UserContext';
 import PopulationButton from '../PopulationButton/PopulationButton';
 import PlaceList from '../PlaceList/PlaceList';
@@ -39,7 +39,9 @@ function MyPlaces(){
   },[])
 
   return(
-    <PlaceList places={places}/>
+    <Layout.Content className="app">
+      <PlaceList places={places}/>
+    </Layout.Content>
   )
 }
 
