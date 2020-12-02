@@ -10,7 +10,7 @@ import Login from './features/Authentication/Login/Login';
 import Register from './features/Authentication/Register/Register';
 import SplashScreen from './features/SplashScreen/SplashScreen';
 import MyPlaces from './features/MyPlaces/MyPlaces';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from './screens/HomeScreen/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import PlacePopulationChange from './features/PlacePopulationChange/PlacePopulationChange';
 import {UserContext} from './context/UserContext';

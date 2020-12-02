@@ -161,4 +161,7 @@ function HomePlaceList({filters, setFilters}){
     </Layout.Content>
   )
 }
+
+
+
 export default SearchScreen;
